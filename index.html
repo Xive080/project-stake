@@ -27,17 +27,24 @@ h1{font-family:var(--disp);font-weight:400;text-transform:uppercase;text-align:c
 text-shadow:0 0 10px #d800ff,0 0 25px #8a2be2,0 0 40px var(--magenta),0 5px 5px rgba(0,0,0,.8)}
 .sub{text-align:center;color:var(--mut);margin:0 auto 2.5rem;max-width:60ch;text-wrap:balance}
 .menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:clamp(1rem,3vw,2.5rem)}
-.card{position:relative;aspect-ratio:4/3;max-width:100%;display:flex;align-items:center;justify-content:center;text-decoration:none;overflow:hidden;
+.card{position:relative;max-width:100%;display:flex;flex-direction:column;align-items:stretch;gap:.5rem;padding:.9rem .9rem 1.1rem;overflow:hidden;
 background:rgba(20,5,40,.6);border:5px solid var(--gold);
 box-shadow:inset 0 0 25px rgba(255,0,0,.9),inset 0 0 50px rgba(0,0,0,.8),0 0 15px rgba(184,134,11,.8),0 0 35px rgba(128,0,128,.7);transition:transform .2s,background .2s,box-shadow .2s,border-color .2s}
 .card::before{content:"";position:absolute;inset:2px;border:2px solid rgba(255,0,0,.4);pointer-events:none}
-.card:hover,.card:focus-visible{transform:scale(1.04);background:rgba(50,15,70,.85);border-color:var(--gold-hi);outline:none;
+.card:hover,.card:focus-within{transform:scale(1.03);background:rgba(50,15,70,.85);border-color:var(--gold-hi);outline:none;
 box-shadow:inset 0 0 40px #f00,inset 0 0 20px rgba(255,255,255,.1),0 0 25px var(--gold-hi),0 0 50px rgba(255,0,255,.9)}
-.card span{font-family:var(--disp);font-weight:400;text-transform:uppercase;text-align:center;letter-spacing:2px;color:var(--blood);padding:1rem;font-size:clamp(1.5rem,4vw,2.2rem);
+.lbl{text-decoration:none;position:relative;z-index:2;outline:none}
+.card span{display:block;font-family:var(--disp);font-weight:400;text-transform:uppercase;text-align:center;letter-spacing:2px;color:var(--blood);padding:.4rem;font-size:clamp(1.6rem,4vw,2.3rem);
 text-shadow:2px 2px 0 var(--gold-hi),-1px -1px 0 var(--gold-hi),1px -1px 0 var(--gold-hi),-1px 1px 0 var(--gold-hi),0 0 15px #f00}
 .card small{display:block;font-family:var(--hud);font-size:.55rem;letter-spacing:1px;color:var(--bone);text-shadow:none;margin-top:.8rem;line-height:1.6}
 section.panel{margin-top:3.5rem;scroll-margin-top:1.5rem}
 h2{font-family:var(--disp);font-weight:400;text-transform:uppercase;letter-spacing:4px;margin:0 0 1rem;font-size:clamp(1.4rem,4vw,2rem);color:var(--gold-hi);text-shadow:0 0 14px rgba(255,0,0,.8)}
+.vid{position:relative;z-index:2;aspect-ratio:16/9;max-width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;background:repeating-linear-gradient(135deg,rgba(255,255,255,.03) 0 10px,transparent 10px 20px),#0a0016;border:2px solid var(--blood);box-shadow:inset 0 0 30px rgba(0,0,0,.9),0 0 14px rgba(255,0,0,.45);overflow:hidden}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vid b{font-family:var(--hud);font-size:.55rem;font-weight:400;letter-spacing:1px;color:var(--mut)}
+.vid .play{width:40px;height:40px;border-radius:50%;border:3px solid var(--blood);display:grid;place-items:center}
+.vid .play::after{content:"";margin-left:4px;border-left:13px solid var(--blood);border-block:8px solid transparent}
+.frame.one{grid-template-columns:minmax(0,1fr)}
 .frame{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(1rem,3vw,2rem);padding:1.25rem;background:var(--panel);border:3px solid var(--gold);box-shadow:inset 0 0 30px rgba(255,0,0,.35),0 0 25px rgba(128,0,128,.6)}
 @media(max-width:760px){.frame{grid-template-columns:minmax(0,1fr)}}
 .video{aspect-ratio:16/9;max-width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;text-align:center;text-decoration:none;color:var(--bone);padding:1rem;
@@ -80,16 +87,14 @@ footer a{color:var(--gold-hi)}
 <p class="sub">An unofficial fan project to decompile Vampire Night (PS2, PAL) and run it natively on Mac, Windows and Android. Not affiliated with Sega or Namco. No game files are included.</p>
 
 <nav class="menu" aria-label="Sections">
-<a class="card" href="#download"><span>Download</span></a>
-<a class="card" href="#recomp"><span>Recomp<small>BOOTS · LOADING SCREEN</small></span></a>
-<a class="card" href="#decomp"><span>Decomp<small>~11% OF FUNCTIONS</small></span></a>
+<div class="card"><a class="lbl" href="#download"><span>Download</span></a><div class="vid" data-video="download"><i class="play" aria-hidden="true"></i><b>VIDEO</b></div></div>
+<div class="card"><a class="lbl" href="#recomp"><span>Recomp<small>BOOTS · LOADING SCREEN</small></span></a><div class="vid" data-video="recomp"><i class="play" aria-hidden="true"></i><b>VIDEO</b></div></div>
+<div class="card"><a class="lbl" href="#decomp"><span>Decomp<small>~11% OF FUNCTIONS</small></span></a><div class="vid" data-video="decomp"><i class="play" aria-hidden="true"></i><b>VIDEO</b></div></div>
 </nav>
 
 <section class="panel" id="recomp">
 <h2>Recomp</h2>
-<div class="frame">
-<a class="video" id="video-recomp" href="https://www.youtube.com/" target="_blank" rel="noopener" data-video="recomp">
-<span class="play" aria-hidden="true"></span><b>RECOMP VIDEO</b><em>Gameplay clip goes here. Opens on YouTube.</em></a>
+<div class="frame one">
 <div class="info">
 <p>The original program is translated to native code ahead of time and run on a small PS2 runtime. It starts, draws the Namco and WOW logos and reaches the “NOW LOADING” screen.</p>
 <ul><li>Threads, interrupts and the GS draw path work.</li><li>Loading runs slowly, about 45 of 60 frames per second.</li><li>Not playable yet.</li></ul>
@@ -101,9 +106,7 @@ footer a{color:var(--gold-hi)}
 
 <section class="panel" id="decomp">
 <h2>Decomp</h2>
-<div class="frame">
-<a class="video" id="video-decomp" href="https://www.youtube.com/" target="_blank" rel="noopener" data-video="decomp">
-<span class="play" aria-hidden="true"></span><b>DECOMP VIDEO</b><em>Viewer or gameplay clip goes here. Opens on YouTube.</em></a>
+<div class="frame one">
 <div class="info">
 <p>The code is rewritten by hand so that it compiles back to the same machine code as the original. A native viewer already shows stage 1 with sky, props and a posed enemy.</p>
 <ul><li>Compiler: CodeWarrior MIPS 2.4.1.01, <code>-O4,p</code>.</li><li>Tests compare against the assembly, not the running game.</li></ul>
@@ -113,7 +116,7 @@ footer a{color:var(--gold-hi)}
 
 <section class="panel" id="download">
 <h2>Download</h2>
-<div class="frame" style="grid-template-columns:minmax(0,1fr)">
+<div class="frame one">
 <div class="info">
 <p>There is no playable build to download yet. What you can get today is the source and the tools. The game itself is never distributed: you need your own copy of the disc.</p>
 <div class="btns">
@@ -132,9 +135,10 @@ footer a{color:var(--gold-hi)}
 function seg(id,on){var b=document.getElementById(id);for(var i=0;i<20;i++){var e=document.createElement('i');if(i<on)e.className='on';b.appendChild(e)}}
 seg('bar-recomp',Math.round(20*5/8));
 seg('bar-decomp',Math.round(20*850/7422));
-/* Swap in the real YouTube links here when they are ready. */
-var VIDEOS={recomp:'',decomp:''};
-Object.keys(VIDEOS).forEach(function(k){if(VIDEOS[k]){var a=document.querySelector('[data-video="'+k+'"]');if(a){a.href=VIDEOS[k];a.querySelector('em').textContent='Opens on YouTube.'}}});
+/* Paste the YouTube video ID of each clip here. Where embeds are allowed (the GitHub page) it plays in the card. */
+var VIDEOS={download:'',recomp:'',decomp:''};
+Object.keys(VIDEOS).forEach(function(k){var id=VIDEOS[k];if(!id)return;var v=document.querySelector('[data-video="'+k+'"]');if(!v)return;
+v.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'" title="'+k+' video" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>'});
 })();
 </script>
 </body>
