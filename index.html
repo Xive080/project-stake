@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Vampire Night: Decomp y Recomp</title>
-<meta name="description" content="Decompilación y recompilación estática de Vampire Night (PS2, PAL) para llevarlo a Mac, Windows, Linux y Android.">
+<title>Vampire Night: Decomp / Recomp</title>
+<meta name="description" content="Decompilación y recompilación estática de Vampire Night (PS2, PAL) · Static recompilation and decompilation of Vampire Night (PS2, PAL).">
 <style>
 :root{--bg:#0e0a10;--fg:#e9e2ea;--mut:#a597a8;--card:#1a1220;--line:#34243c;--acc:#c0304a}
 @media (prefers-color-scheme:light){:root{--bg:#faf6f8;--fg:#241a28;--mut:#6b5b70;--card:#fff;--line:#e3d6e6;--acc:#a8213b}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}
-main{max-width:860px;margin:0 auto;padding:0 16px 64px}
-header{padding:64px 0 24px}
+main{max-width:860px;margin:0 auto;padding:0 16px 64px;position:relative}
+header{padding:72px 0 24px}
 h1{font-size:clamp(2rem,6vw,3.2rem);line-height:1.1;margin:0 0 12px}
 h1 span{color:var(--acc)}
 h2{margin:48px 0 12px;font-size:1.5rem}
@@ -24,21 +24,28 @@ ul{padding-left:1.2em;margin:8px 0}
 li{margin:4px 0}
 code{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.92em}
 .note{border-left:3px solid var(--acc);padding:4px 16px;color:var(--mut);margin:24px 0}
+html[lang=es] [data-l=en],html[lang=en] [data-l=es]{display:none}
+.lang{position:absolute;top:16px;right:16px;display:flex;gap:6px}
+.lang button{background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:99px;padding:4px 12px;font:inherit;font-size:.85rem;cursor:pointer}
+html[lang=es] .lang [data-b=es],html[lang=en] .lang [data-b=en]{border-color:var(--acc)}
 footer{color:var(--mut);font-size:.9rem;margin-top:56px;border-top:1px solid var(--line);padding-top:16px}
 </style>
 </head>
 <body>
 <main>
+<div class="lang"><button data-b="es" onclick="setLang('es')">Español</button><button data-b="en" onclick="setLang('en')">English</button></div>
 <header>
-<h1>Vampire <span>Night</span><br>Decomp y Recomp</h1>
-<p class="lead">Dos proyectos para entender y llevar a cualquier plataforma el arcade de pistola de Sega/Namco en PlayStation 2 (versión PAL, SCES-50411): Mac, Windows, Linux y Android.</p>
+<h1>Vampire <span>Night</span><br><span style="color:inherit" data-l="es">Decomp y Recomp</span><span style="color:inherit" data-l="en">Decomp &amp; Recomp</span></h1>
+<p class="lead" data-l="es">Dos proyectos para entender y llevar a cualquier plataforma el arcade de pistola de Sega/Namco en PlayStation 2 (versión PAL, SCES-50411): Mac, Windows, Linux y Android.</p>
+<p class="lead" data-l="en">Two projects to understand the Sega/Namco light-gun arcade game on PlayStation 2 (PAL release, SCES-50411) and bring it to any platform: Mac, Windows, Linux and Android.</p>
 </header>
 
 <section>
 <div class="grid">
 <div class="card">
-<span class="tag">En curso</span>
+<span class="tag" data-l="es">En curso</span><span class="tag" data-l="en">In progress</span>
 <h3>Decomp</h3>
+<div data-l="es">
 <p>Reconstruir el código fuente del juego y un motor nativo propio.</p>
 <ul>
 <li>Compilador original identificado: Metrowerks CodeWarrior MIPS 2.4.1.01, <code>-O4,p</code>.</li>
@@ -47,9 +54,20 @@ footer{color:var(--mut);font-size:.9rem;margin-top:56px;border-top:1px solid var
 <li>Visor nativo C++17 + SDL3 + OpenGL 3.3 que ya dibuja la primera fase con cielo, escenario y un enemigo posado.</li>
 </ul>
 </div>
+<div data-l="en">
+<p>Rebuild the game's source code and a native engine of our own.</p>
+<ul>
+<li>Original compiler identified: Metrowerks CodeWarrior MIPS 2.4.1.01, <code>-O4,p</code>.</li>
+<li>Tools to read the AFS containers, meshes, textures, skeletons, motions, cameras and collision data.</li>
+<li>Player, enemy, boss and stage logic rewritten by hand, with tests.</li>
+<li>Native viewer in C++17 + SDL3 + OpenGL 3.3 that already draws the first stage with sky, scenery and a posed enemy.</li>
+</ul>
+</div>
+</div>
 <div class="card">
-<span class="tag">Por empezar</span>
+<span class="tag" data-l="es">Por empezar</span><span class="tag" data-l="en">Not started</span>
 <h3>Recomp</h3>
+<div data-l="es">
 <p>Traducir el código MIPS R5900 a C++ y enlazarlo con un runtime propio.</p>
 <ul>
 <li>Primer experimento: traducir el ejecutable principal y llegar a <code>main</code> con un runtime mínimo.</li>
@@ -57,26 +75,51 @@ footer{color:var(--mut);font-size:.9rem;margin-top:56px;border-top:1px solid var
 <li>El código generado se produce en local, no se distribuye.</li>
 </ul>
 </div>
+<div data-l="en">
+<p>Translate the MIPS R5900 code to C++ and link it against a runtime of our own.</p>
+<ul>
+<li>First experiment: translate the main executable and reach <code>main</code> with a minimal runtime.</li>
+<li>Then: VU0/VU1, GIF/VIF/DMA and a GS on top of OpenGL/GLES, audio and input.</li>
+<li>Generated code is produced locally and never distributed.</li>
+</ul>
+</div>
+</div>
 </div>
 </section>
 
 <section>
-<h2>Cómo se complementan</h2>
-<p>El decomp documenta formatos, símbolos y comportamiento, y sirve de referencia para comprobar el resultado. La recompilación busca llegar antes a algo jugable reutilizando el código original. Lo aprendido en uno alimenta al otro.</p>
+<h2 data-l="es">Cómo se complementan</h2><h2 data-l="en">How they fit together</h2>
+<p data-l="es">El decomp documenta formatos, símbolos y comportamiento, y sirve de referencia para comprobar el resultado. La recompilación busca llegar antes a algo jugable reutilizando el código original. Lo aprendido en uno alimenta al otro.</p>
+<p data-l="en">The decomp documents formats, symbols and behaviour, and serves as the reference to check results against. Recompilation aims to reach something playable sooner by reusing the original code. What one learns feeds the other.</p>
 </section>
 
 <section>
-<h2>Método</h2>
-<ul>
+<h2 data-l="es">Método</h2><h2 data-l="en">Method</h2>
+<ul data-l="es">
 <li>Se compara con el juego real ejecutado en un emulador, leyendo su memoria y comparando imágenes.</li>
 <li>Todo lo que no está verificado contra el juego se marca como estimado.</li>
 <li>Los tests de la lógica reescrita comprueban contra la lectura del ensamblador, no contra el juego completo.</li>
 </ul>
+<ul data-l="en">
+<li>Results are compared with the real game running in an emulator, reading its memory and comparing images.</li>
+<li>Anything not verified against the game is marked as an estimate.</li>
+<li>Tests of the rewritten logic check against our reading of the assembly, not against the full game.</li>
+</ul>
 </section>
 
-<p class="note">Los repositorios son privados por ahora. Este proyecto no incluye ni distribuirá el juego, su ejecutable ni sus recursos: hace falta tu propio disco original.</p>
+<p class="note" data-l="es">Los repositorios son privados por ahora. Este proyecto no incluye ni distribuirá el juego, su ejecutable ni sus recursos: hace falta tu propio disco original.</p>
+<p class="note" data-l="en">The repositories are private for now. This project does not include and will not distribute the game, its executable or its assets: you need your own original disc.</p>
 
-<footer>Proyecto de aficionado sin relación con Sega ni Namco. Vampire Night es marca de sus propietarios.</footer>
+<footer>
+<span data-l="es">Proyecto de aficionado sin relación con Sega ni Namco. Vampire Night es marca de sus propietarios.</span>
+<span data-l="en">Fan project, not affiliated with Sega or Namco. Vampire Night is a trademark of its owners.</span>
+</footer>
 </main>
+<script>
+function setLang(l){document.documentElement.lang=l;try{localStorage.setItem('lang',l)}catch(e){}}
+(function(){var l;try{l=localStorage.getItem('lang')}catch(e){}
+if(!l)l=(navigator.language||'es').slice(0,2)==='es'?'es':'en';
+document.documentElement.lang=l})();
+</script>
 </body>
 </html>
