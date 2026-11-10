@@ -27,20 +27,21 @@ h1{font-family:var(--disp);font-weight:400;text-transform:uppercase;text-align:c
 text-shadow:0 0 10px #d800ff,0 0 25px #8a2be2,0 0 40px var(--magenta),0 5px 5px rgba(0,0,0,.8)}
 .sub{text-align:center;color:var(--mut);margin:0 auto 2.5rem;max-width:60ch;text-wrap:balance}
 .menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:clamp(1rem,3vw,2.5rem)}
-.card{position:relative;max-width:100%;display:flex;flex-direction:column;align-items:stretch;gap:.5rem;padding:.9rem .9rem 1.1rem;overflow:hidden;
+.card{position:relative;aspect-ratio:4/3;max-width:100%;overflow:hidden;border-radius:18px;
 background:rgba(20,5,40,.6);border:5px solid var(--gold);
 box-shadow:inset 0 0 25px rgba(255,0,0,.9),inset 0 0 50px rgba(0,0,0,.8),0 0 15px rgba(184,134,11,.8),0 0 35px rgba(128,0,128,.7);transition:transform .2s,background .2s,box-shadow .2s,border-color .2s}
-.card::before{content:"";position:absolute;inset:2px;border:2px solid rgba(255,0,0,.4);pointer-events:none}
+.card::before{content:"";position:absolute;z-index:4;inset:2px;border-radius:14px;border:2px solid rgba(255,0,0,.4);pointer-events:none}
 .card:hover,.card:focus-within{transform:scale(1.03);background:rgba(50,15,70,.85);border-color:var(--gold-hi);outline:none;
 box-shadow:inset 0 0 40px #f00,inset 0 0 20px rgba(255,255,255,.1),0 0 25px var(--gold-hi),0 0 50px rgba(255,0,255,.9)}
-.lbl{text-decoration:none;position:relative;z-index:2;outline:none}
-.card span{display:block;font-family:var(--disp);font-weight:400;text-transform:uppercase;text-align:center;letter-spacing:2px;color:var(--blood);padding:.4rem;font-size:clamp(1.6rem,4vw,2.3rem);
+.lbl{position:absolute;inset:0;z-index:3;display:flex;align-items:center;justify-content:center;text-decoration:none;outline:none}
+.card span{display:block;font-family:var(--disp);font-weight:400;text-transform:uppercase;text-align:center;letter-spacing:2px;color:var(--blood);padding:.4rem;font-size:clamp(1.8rem,4.5vw,2.6rem);
 text-shadow:2px 2px 0 var(--gold-hi),-1px -1px 0 var(--gold-hi),1px -1px 0 var(--gold-hi),-1px 1px 0 var(--gold-hi),0 0 15px #f00}
 .card small{display:block;font-family:var(--hud);font-size:.55rem;letter-spacing:1px;color:var(--bone);text-shadow:none;margin-top:.8rem;line-height:1.6}
 section.panel{margin-top:3.5rem;scroll-margin-top:1.5rem}
 h2{font-family:var(--disp);font-weight:400;text-transform:uppercase;letter-spacing:4px;margin:0 0 1rem;font-size:clamp(1.4rem,4vw,2rem);color:var(--gold-hi);text-shadow:0 0 14px rgba(255,0,0,.8)}
-.vid{position:relative;z-index:2;aspect-ratio:16/9;max-width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;background:repeating-linear-gradient(135deg,rgba(255,255,255,.03) 0 10px,transparent 10px 20px),#0a0016;border:2px solid var(--blood);box-shadow:inset 0 0 30px rgba(0,0,0,.9),0 0 14px rgba(255,0,0,.45);overflow:hidden}
-.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vid{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;background:repeating-linear-gradient(135deg,rgba(255,255,255,.03) 0 10px,transparent 10px 20px),#0a0016;overflow:hidden}
+.vid iframe{position:absolute;top:50%;left:50%;width:178%;height:100%;min-width:100%;transform:translate(-50%,-50%);border:0;pointer-events:none}
+.card::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(rgba(0,0,0,.05),rgba(0,0,0,.35))}
 .vid b{font-family:var(--hud);font-size:.55rem;font-weight:400;letter-spacing:1px;color:var(--mut)}
 .vid .play{width:40px;height:40px;border-radius:50%;border:3px solid var(--blood);display:grid;place-items:center}
 .vid .play::after{content:"";margin-left:4px;border-left:13px solid var(--blood);border-block:8px solid transparent}
@@ -135,10 +136,10 @@ footer a{color:var(--gold-hi)}
 function seg(id,on){var b=document.getElementById(id);for(var i=0;i<20;i++){var e=document.createElement('i');if(i<on)e.className='on';b.appendChild(e)}}
 seg('bar-recomp',Math.round(20*5/8));
 seg('bar-decomp',Math.round(20*850/7422));
-/* Paste the YouTube video ID of each clip here. Where embeds are allowed (the GitHub page) it plays in the card. */
+/* Paste the YouTube video ID of each clip here. Where embeds are allowed (the GitHub page) it plays muted behind the card title. */
 var VIDEOS={download:'',recomp:'',decomp:''};
 Object.keys(VIDEOS).forEach(function(k){var id=VIDEOS[k];if(!id)return;var v=document.querySelector('[data-video="'+k+'"]');if(!v)return;
-v.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'" title="'+k+' video" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>'});
+v.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&mute=1&controls=0&loop=1&playlist='+id+'&modestbranding=1&playsinline=1" tabindex="-1" title="'+k+' video" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>'});
 })();
 </script>
 </body>
