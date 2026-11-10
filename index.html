@@ -46,7 +46,7 @@ text-shadow:2px 2px 0 var(--gold-hi),-1px -1px 0 var(--gold-hi),1px -1px 0 var(-
 section.panel{margin-top:3.5rem;scroll-margin-top:1.5rem}
 h2{font-family:var(--disp);font-weight:400;text-transform:uppercase;letter-spacing:4px;margin:0 0 1rem;font-size:clamp(1.4rem,4vw,2rem);color:var(--gold-hi);text-shadow:0 0 14px rgba(255,0,0,.8)}
 .vid{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;background:repeating-linear-gradient(135deg,rgba(255,255,255,.03) 0 10px,transparent 10px 20px),#0a0016;overflow:hidden}
-.vid iframe{filter:grayscale(1) contrast(1.05);position:absolute;top:50%;left:50%;width:178%;height:100%;min-width:100%;transform:translate(-50%,-50%);border:0;pointer-events:none}
+.vid iframe{filter:grayscale(1) contrast(1.05);position:absolute;top:50%;left:50%;width:250%;height:140%;transform:translate(-50%,-50%);border:0;pointer-events:none}
 .card::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(rgba(0,0,0,.05),rgba(0,0,0,.35))}
 .vid b{font-family:var(--hud);font-size:.55rem;font-weight:400;letter-spacing:1px;color:var(--mut)}
 .vid .play{width:40px;height:40px;border-radius:50%;border:3px solid var(--blood);display:grid;place-items:center}
@@ -149,7 +149,7 @@ seg('bar-decomp',Math.round(20*850/7422));
 /* Paste the YouTube video ID of each clip here. Where embeds are allowed (the GitHub page) it plays muted behind the card title. */
 var VIDEOS={download:{id:'3cM_VJpG3yY',start:300},recomp:{id:'MBla6SJad8Q',start:21},decomp:{id:'Hia3t4BWtiA',start:0}};
 Object.keys(VIDEOS).forEach(function(k){var o=VIDEOS[k];var id=o&&o.id?o.id:o;var st=o&&o.start?o.start:0;if(!id)return;var v=document.querySelector('[data-video="'+k+'"]');if(!v)return;
-v.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&mute=1&controls=0&loop=1&playlist='+id+'&modestbranding=1&playsinline=1&start='+st+'" tabindex="-1" title="'+k+' video" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>'});
+v.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&mute=1&controls=0&loop=1&playlist='+id+'&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0&playsinline=1&start='+st+'" tabindex="-1" title="'+k+' video" loading="lazy" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>'});
 
 
 var btns=document.querySelectorAll('.lbl[aria-controls]');
