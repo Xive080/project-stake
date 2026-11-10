@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vampire Night: Decomp y Recomp</title>
+<meta name="description" content="Decompilación y recompilación estática de Vampire Night (PS2, PAL) para llevarlo a Mac, Windows, Linux y Android.">
+<style>
+:root{--bg:#0e0a10;--fg:#e9e2ea;--mut:#a597a8;--card:#1a1220;--line:#34243c;--acc:#c0304a}
+@media (prefers-color-scheme:light){:root{--bg:#faf6f8;--fg:#241a28;--mut:#6b5b70;--card:#fff;--line:#e3d6e6;--acc:#a8213b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:860px;margin:0 auto;padding:0 16px 64px}
+header{padding:64px 0 24px}
+h1{font-size:clamp(2rem,6vw,3.2rem);line-height:1.1;margin:0 0 12px}
+h1 span{color:var(--acc)}
+h2{margin:48px 0 12px;font-size:1.5rem}
+p.lead{color:var(--mut);font-size:1.15rem;max-width:62ch}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+.card h3{margin:0 0 8px}
+.tag{display:inline-block;font-size:.78rem;border:1px solid var(--line);color:var(--mut);border-radius:99px;padding:2px 10px;margin-bottom:10px}
+ul{padding-left:1.2em;margin:8px 0}
+li{margin:4px 0}
+code{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.92em}
+.note{border-left:3px solid var(--acc);padding:4px 16px;color:var(--mut);margin:24px 0}
+footer{color:var(--mut);font-size:.9rem;margin-top:56px;border-top:1px solid var(--line);padding-top:16px}
+</style>
+</head>
+<body>
+<main>
+<header>
+<h1>Vampire <span>Night</span><br>Decomp y Recomp</h1>
+<p class="lead">Dos proyectos para entender y llevar a cualquier plataforma el arcade de pistola de Sega/Namco en PlayStation 2 (versión PAL, SCES-50411): Mac, Windows, Linux y Android.</p>
+</header>
+
+<section>
+<div class="grid">
+<div class="card">
+<span class="tag">En curso</span>
+<h3>Decomp</h3>
+<p>Reconstruir el código fuente del juego y un motor nativo propio.</p>
+<ul>
+<li>Compilador original identificado: Metrowerks CodeWarrior MIPS 2.4.1.01, <code>-O4,p</code>.</li>
+<li>Herramientas para leer los contenedores AFS, mallas, texturas, esqueletos, movimientos, cámaras y colisiones.</li>
+<li>Lógica de jugador, enemigos, jefes y escenas reescrita a mano con tests.</li>
+<li>Visor nativo C++17 + SDL3 + OpenGL 3.3 que ya dibuja la primera fase con cielo, escenario y un enemigo posado.</li>
+</ul>
+</div>
+<div class="card">
+<span class="tag">Por empezar</span>
+<h3>Recomp</h3>
+<p>Traducir el código MIPS R5900 a C++ y enlazarlo con un runtime propio.</p>
+<ul>
+<li>Primer experimento: traducir el ejecutable principal y llegar a <code>main</code> con un runtime mínimo.</li>
+<li>Después: VU0/VU1, GIF/VIF/DMA y un GS sobre OpenGL/GLES, audio y entrada.</li>
+<li>El código generado se produce en local, no se distribuye.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section>
+<h2>Cómo se complementan</h2>
+<p>El decomp documenta formatos, símbolos y comportamiento, y sirve de referencia para comprobar el resultado. La recompilación busca llegar antes a algo jugable reutilizando el código original. Lo aprendido en uno alimenta al otro.</p>
+</section>
+
+<section>
+<h2>Método</h2>
+<ul>
+<li>Se compara con el juego real ejecutado en un emulador, leyendo su memoria y comparando imágenes.</li>
+<li>Todo lo que no está verificado contra el juego se marca como estimado.</li>
+<li>Los tests de la lógica reescrita comprueban contra la lectura del ensamblador, no contra el juego completo.</li>
+</ul>
+</section>
+
+<p class="note">Los repositorios son privados por ahora. Este proyecto no incluye ni distribuirá el juego, su ejecutable ni sus recursos: hace falta tu propio disco original.</p>
+
+<footer>Proyecto de aficionado sin relación con Sega ni Namco. Vampire Night es marca de sus propietarios.</footer>
+</main>
+</body>
+</html>
