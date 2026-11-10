@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Vampire Night: Decomp / Recomp</title>
-<meta name="description" content="Decompilación y recompilación estática de Vampire Night (PS2, PAL) · Static recompilation and decompilation of Vampire Night (PS2, PAL).">
+<title>Project Stake</title>
+<meta name="description" content="Project Stake: unofficial tools for studying and porting Vampire Night (PS2, PAL) · Herramientas no oficiales para estudiar y portar Vampire Night.">
 <style>
 :root{--bg:#0e0a10;--fg:#e9e2ea;--mut:#a597a8;--card:#1a1220;--line:#34243c;--acc:#c0304a}
 @media (prefers-color-scheme:light){:root{--bg:#faf6f8;--fg:#241a28;--mut:#6b5b70;--card:#fff;--line:#e3d6e6;--acc:#a8213b}}
@@ -35,9 +35,11 @@ footer{color:var(--mut);font-size:.9rem;margin-top:56px;border-top:1px solid var
 <main>
 <div class="lang"><button data-b="es" onclick="setLang('es')">Español</button><button data-b="en" onclick="setLang('en')">English</button></div>
 <header>
-<h1>Vampire <span>Night</span><br><span style="color:inherit" data-l="es">Decomp y Recomp</span><span style="color:inherit" data-l="en">Decomp &amp; Recomp</span></h1>
-<p class="lead" data-l="es">Dos proyectos para entender y llevar a cualquier plataforma el arcade de pistola de Sega/Namco en PlayStation 2 (versión PAL, SCES-50411): Mac, Windows, Linux y Android.</p>
-<p class="lead" data-l="en">Two projects to understand the Sega/Namco light-gun arcade game on PlayStation 2 (PAL release, SCES-50411) and bring it to any platform: Mac, Windows, Linux and Android.</p>
+<h1>Project <span>Stake</span></h1>
+<p class="note" data-l="es">Proyecto no oficial, sin relación con Sega ni Namco. No incluye ni distribuye el juego ni sus recursos.</p>
+<p class="note" data-l="en">Unofficial project, not affiliated with Sega or Namco. It does not include or distribute the game or its assets.</p>
+<p class="lead" data-l="es">Herramientas para estudiar y portar a cualquier plataforma (Mac, Windows, Linux y Android) un arcade de pistola de PlayStation 2: <em>Vampire Night</em>, versión PAL SCES-50411. Dos líneas de trabajo: Decomp y Recomp.</p>
+<p class="lead" data-l="en">Tools to study and port a PlayStation 2 light-gun arcade game, <em>Vampire Night</em> (PAL, SCES-50411), to any platform: Mac, Windows, Linux and Android. Two tracks: Decomp and Recomp.</p>
 </header>
 
 <section>
@@ -111,14 +113,14 @@ footer{color:var(--mut);font-size:.9rem;margin-top:56px;border-top:1px solid var
 <p class="note" data-l="en">The repositories are private for now. This project does not include and will not distribute the game, its executable or its assets: you need your own original disc.</p>
 
 <footer>
-<span data-l="es">Proyecto de aficionado sin relación con Sega ni Namco. Vampire Night es marca de sus propietarios.</span>
-<span data-l="en">Fan project, not affiliated with Sega or Namco. Vampire Night is a trademark of its owners.</span>
+<span data-l="es">Proyecto de aficionado sin relación con Sega ni Namco. «Vampire Night» es marca de sus propietarios y se cita solo para identificar el juego.</span>
+<span data-l="en">Fan project, not affiliated with Sega or Namco. "Vampire Night" is a trademark of its owners and is named only to identify the game.</span>
 </footer>
 </main>
 <script>
 function setLang(l){document.documentElement.lang=l;try{localStorage.setItem('lang',l)}catch(e){}}
 (function(){var l;try{l=localStorage.getItem('lang')}catch(e){}
-if(!l)l=(navigator.language||'es').slice(0,2)==='es'?'es':'en';
+if(!l)l=(navigator.language||'en').slice(0,2)==='es'?'es':'en';
 document.documentElement.lang=l})();
 </script>
 </body>
