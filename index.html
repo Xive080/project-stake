@@ -5,117 +5,121 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Project Stake</title>
 <meta name="description" content="Project Stake: unofficial tools for studying and porting Vampire Night (PS2, PAL) · Herramientas no oficiales para estudiar y portar Vampire Night.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=Pirata+One&family=Press+Start+2P&display=swap">
 <style>
-:root{--bg:#0e0a10;--fg:#e9e2ea;--mut:#a597a8;--card:#1a1220;--line:#34243c;--acc:#c0304a}
-@media (prefers-color-scheme:light){:root{--bg:#faf6f8;--fg:#241a28;--mut:#6b5b70;--card:#fff;--line:#e3d6e6;--acc:#a8213b}}
+/* Layout: black cabinet. HUD strip, giant blackletter title with a reticle, panels with targeting-reticle corners, segmented health bars. */
+:root{--bg:#0b0608;--bg2:#150b10;--bone:#eadfca;--mut:#a8998c;--red:#e03550;--blood:#8f0f22;--gold:#dcab4a;--line:#3a1a22;
+--disp:'Pirata One','UnifrakturCook',Georgia,serif;--body:'Crimson Pro',Georgia,serif;--hud:'Press Start 2P',ui-monospace,monospace;color-scheme:dark}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}
-main{max-width:860px;margin:0 auto;padding:0 16px 64px;position:relative}
-header{padding:72px 0 24px}
-h1{font-size:clamp(2rem,6vw,3.2rem);line-height:1.1;margin:0 0 12px}
-h1 span{color:var(--acc)}
-h2{margin:48px 0 12px;font-size:1.5rem}
-p.lead{color:var(--mut);font-size:1.15rem;max-width:62ch}
-.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
-.card h3{margin:0 0 8px}
-.tag{display:inline-block;font-size:.78rem;border:1px solid var(--line);color:var(--mut);border-radius:99px;padding:2px 10px;margin-bottom:10px}
-ul{padding-left:1.2em;margin:8px 0}
-li{margin:4px 0}
-code{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.92em}
-.note{border-left:3px solid var(--acc);padding:4px 16px;color:var(--mut);margin:24px 0}
+body{margin:0;background:var(--bg);color:var(--bone);font:19px/1.6 var(--body);
+background-image:radial-gradient(ellipse at 50% -10%,#3a0d18 0,transparent 55%),radial-gradient(ellipse at 50% 120%,#2a0a12 0,transparent 50%);
+padding-block:28px 72px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));position:relative;overflow-x:hidden}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) 2px,rgba(0,0,0,.22) 3px);mix-blend-mode:multiply}
+main{max-width:900px;margin:0 auto;position:relative;display:flex;flex-direction:column;gap:40px}
+.hud{display:flex;flex-wrap:wrap;gap:10px 26px;font:.6rem/1.4 var(--hud);color:var(--mut);border-block:1px solid var(--line);padding:12px 0;letter-spacing:.04em;padding-right:150px}
+.hud b{color:var(--gold);font-weight:400}
+.lang{position:absolute;top:0;right:0;display:flex;gap:6px}
+.lang button{font:.55rem var(--hud);background:var(--bg2);color:var(--bone);border:1px solid var(--line);padding:9px 10px;cursor:pointer}
+.lang button:hover{border-color:var(--red)}
+html[lang=es] .lang [data-b=es],html[lang=en] .lang [data-b=en]{background:var(--blood);border-color:var(--red)}
 html[lang=es] [data-l=en],html[lang=en] [data-l=es]{display:none}
-.lang{position:absolute;top:16px;right:16px;display:flex;gap:6px}
-.lang button{background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:99px;padding:4px 12px;font:inherit;font-size:.85rem;cursor:pointer}
-html[lang=es] .lang [data-b=es],html[lang=en] .lang [data-b=en]{border-color:var(--acc)}
-footer{color:var(--mut);font-size:.9rem;margin-top:56px;border-top:1px solid var(--line);padding-top:16px}
+.hero{display:flex;align-items:center;gap:22px;flex-wrap:wrap;padding-top:8px}
+.hero svg{width:clamp(64px,14vw,108px);height:auto;flex:none;filter:drop-shadow(0 0 10px rgba(224,53,80,.55))}
+h1{font:400 clamp(3.2rem,13vw,6.6rem)/.88 var(--disp);margin:0;color:var(--bone);text-shadow:0 0 22px rgba(224,53,80,.5),3px 3px 0 var(--blood);letter-spacing:.01em;text-wrap:balance}
+h1 em{font-style:normal;color:var(--red)}
+.lead{font-size:1.25rem;color:var(--bone);max-width:60ch;margin:0}
+.lead.mut{color:var(--mut)}
+.tagline{font:.62rem/1.8 var(--hud);color:var(--red);letter-spacing:.08em;margin:0;animation:blink 1.6s steps(2,start) infinite}
+@keyframes blink{to{visibility:hidden}}
+@media (prefers-reduced-motion:reduce){.tagline{animation:none}}
+h2{font:400 2rem/1 var(--disp);color:var(--red);margin:0 0 14px;display:flex;align-items:center;gap:14px}
+h2::after{content:"";flex:1;border-top:1px dashed var(--blood)}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.card{position:relative;padding:22px 22px 20px;min-width:0;background:
+linear-gradient(var(--red),var(--red)) top left/16px 2px no-repeat,linear-gradient(var(--red),var(--red)) top left/2px 16px no-repeat,
+linear-gradient(var(--red),var(--red)) top right/16px 2px no-repeat,linear-gradient(var(--red),var(--red)) top right/2px 16px no-repeat,
+linear-gradient(var(--red),var(--red)) bottom left/16px 2px no-repeat,linear-gradient(var(--red),var(--red)) bottom left/2px 16px no-repeat,
+linear-gradient(var(--red),var(--red)) bottom right/16px 2px no-repeat,linear-gradient(var(--red),var(--red)) bottom right/2px 16px no-repeat,
+var(--bg2);border:1px solid var(--line)}
+.card h3{font:400 1.9rem/1 var(--disp);margin:0 0 4px;color:var(--bone)}
+.stage{font:.55rem var(--hud);color:var(--gold);letter-spacing:.08em;display:block;margin-bottom:10px}
+.card p{margin:8px 0}
+ul{margin:8px 0;padding-left:1.15em}li{margin:6px 0}li::marker{color:var(--red)}
+code{font:.82em var(--hud);color:var(--gold);word-break:break-word}
+.bar{display:flex;gap:3px;margin:14px 0 4px}.bar i{flex:1;height:12px;background:var(--line)}.bar i.on{background:var(--red);box-shadow:0 0 8px rgba(224,53,80,.6)}
+.barcap{font:.55rem var(--hud);color:var(--mut)}
+dl{display:grid;grid-template-columns:max-content 1fr;gap:10px 22px;margin:0}
+dt{font:.58rem/1.8 var(--hud);color:var(--gold);letter-spacing:.05em;padding-top:4px}dd{margin:0}
+.note{border:1px solid var(--blood);background:rgba(143,15,34,.16);padding:12px 16px;margin:0;font-size:1.05rem}
+a{color:var(--red);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:var(--gold)}
+footer{color:var(--mut);font-size:.95rem;border-top:1px dashed var(--blood);padding-top:18px}
+.wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:540px}
+th{font:.55rem var(--hud);color:var(--gold);text-align:left;padding:10px;border-bottom:1px solid var(--blood);letter-spacing:.05em}
+td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+.pill{font:.52rem var(--hud);padding:5px 8px;border:1px solid currentColor;white-space:nowrap}.ok{color:#6fd39b}.est{color:var(--gold)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 </style>
 </head>
 <body>
 <main>
-<div class="lang"><button data-b="es" onclick="setLang('es')">Español</button><button data-b="en" onclick="setLang('en')">English</button></div>
-<header>
-<h1>Project <span>Stake</span></h1>
-<p class="note" data-l="es">Proyecto no oficial, sin relación con Sega ni Namco. No incluye ni distribuye el juego ni sus recursos.</p>
-<p class="note" data-l="en">Unofficial project, not affiliated with Sega or Namco. It does not include or distribute the game or its assets.</p>
-<p class="lead" data-l="es">Herramientas para estudiar y portar a cualquier plataforma (Mac, Windows, Linux y Android) un arcade de pistola de PlayStation 2: <em>Vampire Night</em>, versión PAL SCES-50411. Dos líneas de trabajo: Decomp y Recomp.</p>
-<p class="lead" data-l="en">Tools to study and port a PlayStation 2 light-gun arcade game, <em>Vampire Night</em> (PAL, SCES-50411), to any platform: Mac, Windows, Linux and Android. Two tracks: Decomp and Recomp.</p>
-</header>
+<div class="lang"><button data-b="es" onclick="setLang('es')">ES</button><button data-b="en" onclick="setLang('en')">EN</button></div>
+
+<div class="hud"><span>TRACKS <b>2</b></span><span>TARGETS <b>MAC · WIN · LINUX · ANDROID</b></span><span>ENGINE <b>C++17 · SDL3 · GL 3.3</b></span></div>
+<header class="hero"><svg viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="#e03550" stroke-width="4"><circle cx="50" cy="50" r="30"/><circle cx="50" cy="50" r="4" fill="#e03550"/><path d="M50 4v26M50 70v26M4 50h26M70 50h26"/></svg><h1>Project <em>Stake</em></h1></header>
+<p class="tagline" data-l="en">INSERT YOUR OWN DISC</p><p class="tagline" data-l="es">INSERTA TU PROPIO DISCO</p>
+<p class="lead" data-l="es">Herramientas no oficiales para estudiar y portar a cualquier plataforma un arcade de pistola de PlayStation 2: <em>Vampire Night</em>, versión PAL SCES-50411. Dos líneas de trabajo: Decomp y Recomp.</p><p class="lead" data-l="en">Unofficial tools to study and port a PlayStation 2 light-gun arcade game, <em>Vampire Night</em> (PAL, SCES-50411), to any platform. Two tracks: Decomp and Recomp.</p>
+<p class="note" data-l="es">Proyecto no oficial, sin relación con Sega ni Namco. No incluye ni distribuye el juego ni sus recursos.</p><p class="note" data-l="en">Unofficial project, not affiliated with Sega or Namco. It does not include or distribute the game or its assets.</p>
 
 <section>
+<h2 data-l="es">Dos pistas</h2><h2 data-l="en">Two tracks</h2>
 <div class="grid">
-<div class="card">
-<span class="tag" data-l="es">En curso</span><span class="tag" data-l="en">In progress</span>
+<div class="card"><span class="stage" data-l="es">PISTA 1 · EN CURSO</span><span class="stage" data-l="en">TRACK 1 · IN PROGRESS</span>
 <h3>Decomp</h3>
-<div data-l="es">
-<p>Reconstruir el código fuente del juego y un motor nativo propio.</p>
-<ul>
-<li>Compilador original identificado: Metrowerks CodeWarrior MIPS 2.4.1.01, <code>-O4,p</code>.</li>
-<li>Herramientas para leer los contenedores AFS, mallas, texturas, esqueletos, movimientos, cámaras y colisiones.</li>
-<li>Lógica de jugador, enemigos, jefes y escenas reescrita a mano con tests.</li>
-<li>Visor nativo C++17 + SDL3 + OpenGL 3.3 que ya dibuja la primera fase con cielo, escenario y un enemigo posado.</li>
-</ul>
-</div>
-<div data-l="en">
-<p>Rebuild the game's source code and a native engine of our own.</p>
-<ul>
-<li>Original compiler identified: Metrowerks CodeWarrior MIPS 2.4.1.01, <code>-O4,p</code>.</li>
-<li>Tools to read the AFS containers, meshes, textures, skeletons, motions, cameras and collision data.</li>
+<div data-l="es"><p>Reconstruir el código fuente del juego y un motor nativo propio.</p><ul>
+<li>Compilador original identificado: CodeWarrior MIPS 2.4.1.01, <code>-O4,p</code>.</li>
+<li>Herramientas para leer contenedores AFS, mallas, texturas, esqueletos, movimientos, cámaras y colisiones.</li>
+<li>Lógica de jugador, enemigos, jefes y escenas reescrita a mano, con tests.</li>
+<li>Visor nativo que ya dibuja la primera fase con cielo, escenario y un enemigo posado.</li></ul></div>
+<div data-l="en"><p>Rebuild the game's source code and a native engine of our own.</p><ul>
+<li>Original compiler identified: CodeWarrior MIPS 2.4.1.01, <code>-O4,p</code>.</li>
+<li>Tools to read AFS containers, meshes, textures, skeletons, motions, cameras and collision data.</li>
 <li>Player, enemy, boss and stage logic rewritten by hand, with tests.</li>
-<li>Native viewer in C++17 + SDL3 + OpenGL 3.3 that already draws the first stage with sky, scenery and a posed enemy.</li>
-</ul>
+<li>Native viewer that already draws the first stage with sky, scenery and a posed enemy.</li></ul></div>
+<div class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="barcap" data-l="es">LÓGICA REESCRITA · ESTIMADO ~11 %</span><span class="barcap" data-l="en">LOGIC REWRITTEN · ESTIMATED ~11%</span>
 </div>
-</div>
-<div class="card">
-<span class="tag" data-l="es">Por empezar</span><span class="tag" data-l="en">Not started</span>
+<div class="card"><span class="stage" data-l="es">PISTA 2 · POR EMPEZAR</span><span class="stage" data-l="en">TRACK 2 · NOT STARTED</span>
 <h3>Recomp</h3>
-<div data-l="es">
-<p>Traducir el código MIPS R5900 a C++ y enlazarlo con un runtime propio.</p>
-<ul>
+<div data-l="es"><p>Traducir el código MIPS R5900 a C++ y enlazarlo con un runtime propio.</p><ul>
 <li>Primer experimento: traducir el ejecutable principal y llegar a <code>main</code> con un runtime mínimo.</li>
 <li>Después: VU0/VU1, GIF/VIF/DMA y un GS sobre OpenGL/GLES, audio y entrada.</li>
-<li>El código generado se produce en local, no se distribuye.</li>
-</ul>
-</div>
-<div data-l="en">
-<p>Translate the MIPS R5900 code to C++ and link it against a runtime of our own.</p>
-<ul>
+<li>El código generado se produce en local y no se distribuye.</li></ul></div>
+<div data-l="en"><p>Translate the MIPS R5900 code to C++ and link it against a runtime of our own.</p><ul>
 <li>First experiment: translate the main executable and reach <code>main</code> with a minimal runtime.</li>
-<li>Then: VU0/VU1, GIF/VIF/DMA and a GS on top of OpenGL/GLES, audio and input.</li>
-<li>Generated code is produced locally and never distributed.</li>
-</ul>
-</div>
+<li>Then: VU0/VU1, GIF/VIF/DMA and a GS on OpenGL/GLES, audio and input.</li>
+<li>Generated code is produced locally and never distributed.</li></ul></div>
+<div class="bar" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="barcap" data-l="es">RUNTIME · 0 %</span><span class="barcap" data-l="en">RUNTIME · 0%</span>
 </div>
 </div>
 </section>
 
 <section>
-<h2 data-l="es">Cómo se complementan</h2><h2 data-l="en">How they fit together</h2>
-<p data-l="es">El decomp documenta formatos, símbolos y comportamiento, y sirve de referencia para comprobar el resultado. La recompilación busca llegar antes a algo jugable reutilizando el código original. Lo aprendido en uno alimenta al otro.</p>
-<p data-l="en">The decomp documents formats, symbols and behaviour, and serves as the reference to check results against. Recompilation aims to reach something playable sooner by reusing the original code. What one learns feeds the other.</p>
+<h2 data-l="es">Cómo encajan</h2><h2 data-l="en">How they fit</h2>
+<p data-l="es">El decomp documenta formatos, símbolos y comportamiento, y sirve de referencia para comprobar el resultado. La recompilación busca llegar antes a algo jugable reutilizando el código original. Lo aprendido en uno alimenta al otro.</p><p data-l="en">The decomp documents formats, symbols and behaviour, and is the reference results are checked against. Recompilation aims to reach something playable sooner by reusing the original code. What one learns feeds the other.</p>
 </section>
 
 <section>
 <h2 data-l="es">Método</h2><h2 data-l="en">Method</h2>
-<ul data-l="es">
-<li>Se compara con el juego real ejecutado en un emulador, leyendo su memoria y comparando imágenes.</li>
-<li>Todo lo que no está verificado contra el juego se marca como estimado.</li>
-<li>Los tests de la lógica reescrita comprueban contra la lectura del ensamblador, no contra el juego completo.</li>
-</ul>
-<ul data-l="en">
-<li>Results are compared with the real game running in an emulator, reading its memory and comparing images.</li>
-<li>Anything not verified against the game is marked as an estimate.</li>
-<li>Tests of the rewritten logic check against our reading of the assembly, not against the full game.</li>
-</ul>
+<ul data-l="es"><li>Se compara con el juego real ejecutado en un emulador, leyendo su memoria y comparando imágenes.</li><li>Todo lo no verificado contra el juego se marca como estimado.</li><li>Los tests de la lógica reescrita comprueban contra la lectura del ensamblador, no contra el juego completo.</li></ul>
+<ul data-l="en"><li>Results are compared with the real game running in an emulator, reading its memory and comparing images.</li><li>Anything not verified against the game is marked as an estimate.</li><li>Tests of the rewritten logic check against our reading of the assembly, not against the full game.</li></ul>
 </section>
 
-<p class="note" data-l="es">Los repositorios son privados por ahora. Este proyecto no incluye ni distribuirá el juego, su ejecutable ni sus recursos: hace falta tu propio disco original.</p>
-<p class="note" data-l="en">The repositories are private for now. This project does not include and will not distribute the game, its executable or its assets: you need your own original disc.</p>
+<p class="note" data-l="es">Los repositorios son privados por ahora. Hace falta tu propio disco original: este proyecto no lo incluye ni lo distribuirá.</p><p class="note" data-l="en">The repositories are private for now. You need your own original disc: this project does not include and will not distribute it.</p>
 
 <footer>
-<span data-l="es">Proyecto de aficionado sin relación con Sega ni Namco. «Vampire Night» es marca de sus propietarios y se cita solo para identificar el juego.</span>
-<span data-l="en">Fan project, not affiliated with Sega or Namco. "Vampire Night" is a trademark of its owners and is named only to identify the game.</span>
+<span data-l="es">Proyecto de aficionado sin relación con Sega ni Namco. «Vampire Night» es marca de sus propietarios y se cita solo para identificar el juego. Guía de fans: <a href="https://xive080.github.io/stake-archive/">Stake Archive</a>.</span>
+<span data-l="en">Fan project, not affiliated with Sega or Namco. "Vampire Night" is a trademark of its owners and is named only to identify the game. Fan guide: <a href="https://xive080.github.io/stake-archive/">Stake Archive</a>.</span>
 </footer>
+
 </main>
 <script>
 function setLang(l){document.documentElement.lang=l;try{localStorage.setItem('lang',l)}catch(e){}}
